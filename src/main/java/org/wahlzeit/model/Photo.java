@@ -20,11 +20,15 @@
 
 package org.wahlzeit.model;
 
-import java.sql.*;
-import java.net.*;
+import org.wahlzeit.services.DataObject;
+import org.wahlzeit.services.EmailAddress;
+import org.wahlzeit.services.Language;
+import org.wahlzeit.utils.StringUtil;
 
-import org.wahlzeit.services.*;
-import org.wahlzeit.utils.*;
+import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * A photo represents a user-provided (uploaded) photo.
@@ -107,6 +111,19 @@ public class Photo extends DataObject {
 	/**
 	 * 
 	 */
+	private Location location;
+
+	public Location getLocation(){
+		return location;
+	}
+
+	public void setLocation(Location location){
+		this.location = location;
+	}
+	/**
+	 *
+	 */
+
 	public Photo() {
 		id = PhotoId.getNextId();
 		incWriteCount();
@@ -183,7 +200,8 @@ public class Photo extends DataObject {
 		rset.updateInt("status", status.asInt());
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
-		rset.updateLong("creation_time", creationTime);		
+		rset.updateLong("creation_time", creationTime);
+
 	}
 
 	/**
